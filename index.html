@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CountryGuessr</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+
+<body>
+
+    <nav>
+        <h1 class="title">
+            Country<span class="accent-text">Guessr</span>
+        </h1>
+        <img src="images/stats.svg" class="nav-icon" alt="Statistics">
+    </nav>
+
+    <div class="game-area">
+        <div class="game-container">
+
+            <div class="tracker-container">
+                <p class="tracker-text">Attempts: <span class="accent-text" id="current-attempts">0</span> / 5</p>
+            </div>
+
+            <div class="input-group">
+                <input class="country-input" list="countries" placeholder="Type a country...">
+                <button class="submit-btn">Guess</button>
+            </div>
+
+            <div class="hints-stack">
+                <div class="hint locked">
+                    <span class="hint-tag">Hint 1</span>
+                    <span class="hint-content">Locked</span>
+                </div>
+
+                <div class="hint locked">
+                    <span class="hint-tag">Hint 2</span>
+                    <span class="hint-content">Locked</span>
+                </div>
+
+                <div class="hint locked">
+                    <span class="hint-tag">Hint 3</span>
+                    <span class="hint-content">Locked</span>
+                </div>
+
+                <div class="hint locked">
+                    <span class="hint-tag">Hint 4</span>
+                    <span class="hint-content">Locked</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+<datalist id="countries">
+    <option value="United States">
+    <option value="United Kingdom">
+    <option value="Canada">
+    <option value="Australia">
+    <option value="France">
+    <option value="Germany">
+    <option value="Japan">
+</datalist>
+
+</html>
