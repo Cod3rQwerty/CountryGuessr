@@ -41,9 +41,9 @@ async function get_all_countries_by_country() {
 
 async function save_countries_to_local() {
     if (!localStorage.getItem("countryData")) {
-        countries = get_all_countries_by_country()
+        countries = await get_all_countries_by_country()
 
-        localStorage.setItem("countryData", countries)
+        localStorage.setItem("countryData", JSON.stringify(countries))
     }
     else {
         console.log("Country data already in localstorage")
@@ -51,4 +51,22 @@ async function save_countries_to_local() {
 
 }
 
+function update_countries_datalist() {
+    const countries = Object.keys(JSON.parse(localStorage.getItem("countryData")))
+    const datalist = document.getElementById('countries');
+
+    countries.forEach(country => {
+        const option = document.createElement('option');
+        option.value = country;
+        datalist.appendChild(option);
+    })
+
+
+}
+
 save_countries_to_local()
+
+update_countries_datalist()
+
+
+
