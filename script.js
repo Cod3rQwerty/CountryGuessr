@@ -25,3 +25,30 @@ async function get_all_countries() {
 
     return countries;
 }
+
+async function get_all_countries_by_country() {
+    const countries = await get_all_countries();
+    let byCountry = {};
+
+    for (let i = 0; i < countries.length; i++) {
+        byCountry[countries[i].names.common] = countries[i]
+    }
+
+    console.log(byCountry)
+
+    return byCountry
+}
+
+async function save_countries_to_local() {
+    if (!localStorage.getItem("countryData")) {
+        countries = get_all_countries_by_country()
+
+        localStorage.setItem("countryData", countries)
+    }
+    else {
+        console.log("Country data already in localstorage")
+    }
+
+}
+
+save_countries_to_local()
