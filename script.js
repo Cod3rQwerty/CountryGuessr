@@ -1,3 +1,13 @@
+// GLOBALS ##########################################################################
+var ATTEMPTS = 0
+var CORRECT_COUNTRY = ""
+
+// DOM ELEMENTS #####################################################################
+const guessInput = document.getElementById("country-input")
+const submitBtn = document.getElementById("submit-btn")
+const attemptsText = document.getElementById("current-attempts")
+
+// FUNCTIONS ########################################################################
 async function get_all_countries() {
     var offset = 0;
     var countries = [];
@@ -64,9 +74,68 @@ function update_countries_datalist() {
 
 }
 
-save_countries_to_local()
+function set_correct_country() {
+    const countries = Object.keys(JSON.parse(localStorage.getItem("countryData")));
+    const selected_country_idx = Math.floor(Math.random() * countries.length);
+    CORRECT_COUNTRY = countries[selected_country_idx];
+}
 
+function add_guess(country_name) {
+    const alertText = document.getElementById("alert")
+
+    const countries = Object.keys(JSON.parse(localStorage.getItem("countryData")));
+    if (!countries.includes(country_name)) {
+        console.log(`${country_name} is not a country!`)
+        alertText.textContent = "Not a valid country."
+        return;
+    }
+
+    const placeholder = document.getElementById("guess-placeholder-container")
+    if (placeholder != null) {
+        placeholder.remove();
+    }
+
+    const guessesStack = document.getElementById("guesses-stack")
+    const flagUrl = JSON.parse(localStorage.getItem("countryData"))[country_name].flag.url_png
+    const guessHTML = `
+    <div class="guess wrong">
+      <img src="${flagUrl}" alt="${country_name} flag" style="width: 10%;">
+      <span>${country_name}</span>
+    </div>
+  `;
+    guessesStack.insertAdjacentHTML('beforeend', guessHTML);
+
+    ATTEMPTS += 1
+    attemptsText.textContent = ATTEMPTS
+
+}
+
+// EVENT LISTENERS ##################################################################
+submitBtn.addEventListener("click", () => {
+    add_guess(guessInput.value)
+    guessInput.value = ""
+
+})
+
+guessInput.addEventListener("keyup", (event) => {
+    if (event.key == "Enter") {
+        add_guess(guessInput.value)
+        guessInput.value = ""
+        ATTEMPTS += 1
+        attemptsText.value = ATTEMPTS
+    }
+
+})
+
+// MAIN #############################################################################
+
+save_countries_to_local()
 update_countries_datalist()
+set_correct_country()
+
+console.log(CORRECT_COUNTRY)
+
+console.log(JSON.parse(localStorage.getItem("countryData"))["Canada"])
 
 
 

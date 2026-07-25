@@ -33,19 +33,18 @@
                 </div>
 
                 <div class="input-group">
-                    <input class="country-input" list="countries" placeholder="Type a country...">
-                    <button class="submit-btn">Guess</button>
+                    <input class="country-input" list="countries" placeholder="Type a country..." id="country-input">
+                    <button class="submit-btn" id="submit-btn">Guess</button>
                 </div>
 
-                <div class="guesses-stack">
-                    <div class="guess">
-                        <img src="https://flags.restcountries.com/v5/w640/af.png" width="10%">
-                        <span>Afghanistan</span>
+                <div class="guesses-stack" id="guesses-stack">
+                    <div class="guess-placeholder-container" id="guess-placeholder-container">
+                        <p class="guess-placeholder"><i>Your guesses will show up here.</i></p>
                     </div>
                 </div>
 
                 <div class="alert-container">
-                    <p class="alert">Your guess was not correct. You have 2 guesses left.</p>
+                    <p class="alert" id="alert">Your guess was not correct. You have 2 guesses left.</p>
                 </div>
 
             </div>

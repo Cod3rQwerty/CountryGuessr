@@ -191,7 +191,7 @@ nav {
     align-items: center;
     gap: 1rem;
     background-color: #1e293b;
-    border: 1px solid #334155;
+    border: 2px dashed #8b862e;
     border-radius: 12px;
     padding: 1rem;
     min-height: 3rem;
@@ -200,8 +200,21 @@ nav {
     margin-bottom: 10px;
 }
 
+.wrong {
+    border: 2px dashed #8b2e2e;
+}
+
 .hints-panel {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+}
+
+.guess-placeholder {
+    color: grey;
+}
+
+.guess-placeholder-container {
+    display: flex;
+    justify-content: center;
 }
