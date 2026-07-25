@@ -1,7 +1,7 @@
 body {
     background-color: #0f172a;
     color: #f8fafc;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: Poppins;
     margin: 0;
     padding: 0;
 }
@@ -52,10 +52,11 @@ nav {
 }
 
 .game-container {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+
     width: 100%;
-    max-width: 520px;
-    display: flex;
-    flex-direction: column;
+    max-width: 1200px;
     gap: 1.5rem;
 }
 
@@ -88,6 +89,7 @@ nav {
     font-size: 1rem;
     outline: none;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    font-family: "Space Mono";
 }
 
 .country-input:focus {
@@ -102,9 +104,10 @@ nav {
     border-radius: 12px;
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.1s ease;
+    font-family: Poppins;
 }
 
 .submit-btn:hover {
@@ -167,4 +170,32 @@ nav {
 .hint.locked .hint-content {
     color: #64748b;
     font-style: italic;
+}
+
+.alert-container {
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+}
+
+.alert {
+    margin: 0;
+}
+
+.guesses-stack {
+    margin: 20px;
+}
+
+.guess {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 1rem;
+    min-height: 3rem;
+    box-sizing: border-box;
+
+    margin-bottom: 10px;
 }

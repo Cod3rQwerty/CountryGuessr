@@ -7,6 +7,12 @@
     <title>CountryGuessr</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -21,14 +27,34 @@
     <div class="game-area">
         <div class="game-container">
 
-            <div class="tracker-container">
-                <p class="tracker-text">Attempts: <span class="accent-text" id="current-attempts">0</span> / 5</p>
+            <div class="guess-panel">
+                <div class="tracker-container">
+                    <p class="tracker-text">Attempts: <span class="accent-text" id="current-attempts">0</span> / 5</p>
+                </div>
+
+                <div class="input-group">
+                    <input class="country-input" list="countries" placeholder="Type a country...">
+                    <button class="submit-btn">Guess</button>
+                </div>
+
+                <div class="guesses-stack">
+                    <div class="guess">
+                        Mozambique
+                    </div>
+                    <div class="guess">
+                        Mozambique
+                    </div>
+                    <div class="guess">
+                        Mozambique
+                    </div>
+                </div>
+
+                <div class="alert-container">
+                    <p class="alert">Your guess was not correct. You have 2 guesses left.</p>
+                </div>
+
             </div>
 
-            <div class="input-group">
-                <input class="country-input" list="countries" placeholder="Type a country...">
-                <button class="submit-btn">Guess</button>
-            </div>
 
             <div class="hints-stack">
                 <div class="hint locked">
