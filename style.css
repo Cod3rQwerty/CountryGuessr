@@ -199,3 +199,9 @@ nav {
 
     margin-bottom: 10px;
 }
+
+.hints-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
