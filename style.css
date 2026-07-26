@@ -18,9 +18,10 @@ nav {
 
 .title {
     font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: -0.05em;
+    font-weight: 800;
+    letter-spacing: 0em;
     margin: 0;
+    font-family: "Poppins";
 }
 
 .accent-text {
