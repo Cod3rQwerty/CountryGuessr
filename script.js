@@ -208,7 +208,7 @@ function get_hint_text(country_name, hint_type) {
             return `This country speaks ${formatted}.`
         }
         case "POPULATION": {
-            return `This country has a population of ${country_info.population}`
+            return `This country has a population of ${country_info.population.toLocaleString()}`
         }
         case "GOVERNMENT-TYPE": {
             return `This country's government type is ${country_info.government_type}`
