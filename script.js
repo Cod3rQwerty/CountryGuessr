@@ -1,6 +1,25 @@
 // GLOBALS ##########################################################################
 var ATTEMPTS = 0
 var CORRECT_COUNTRY = ""
+const HINT_TYPES = {
+    "HARD": ["DRIVING-SIDE",
+        "LANDLOCKED",
+        "CONTINENT",
+        "AREA",
+        "G20",
+        "CURRENCY"],
+    "MEDIUM": [
+        "BORDERS-3",
+        "COUNTRY-FIRST-LETTER",
+        "LANGUAGES",
+        "POPULATION",
+        "GOVERNMENT-TYPE",
+        "CAPITAL-FIRST-LETTER"],
+    "EASY": [
+        "FLAG-DESC",
+        "CAPITAL",
+        "ALL-BORDERS"]
+}
 
 // DOM ELEMENTS #####################################################################
 const guessInput = document.getElementById("country-input")
@@ -110,6 +129,191 @@ function add_guess(country_name) {
 
 }
 
+function get_hint_text(country_name, hint_type) {
+    const country_info = JSON.parse(localStorage.getItem("countryData"))[country_name]
+
+    switch (hint_type) {
+        case "DRIVING-SIDE": {
+            return `This country drives on the ${country_info.cars.driving_side}`;
+        }
+        case "LANDLOCKED": {
+            if (country_info.landlocked == true) {
+                return "This country is landlocked."
+            }
+            else {
+                return "This country is not landlocked."
+            }
+        }
+        case "CONTINENT": {
+            const continent = country_info.continents[0]
+            // To handle continents like Americas
+            if (continent[-1] == "s") {
+                return `This country is in the continent of the ${continent}`
+            }
+            else {
+                return `This country is in the continent of ${continent}`
+            }
+        }
+        case "AREA": {
+            const km_area = country_info.area.kilometers
+            const m_area = country_info.area.miles
+            return `This country has an area of ${km_area.toLocaleString()} km² (${m_area.toLocaleString()} miles²)`
+        }
+        case "G20": {
+            if (country_info.memberships["g20"] == true) {
+                return "This country is an induvidual member of the G20."
+            }
+            else {
+                return "This country is not an individual member of the G20."
+            }
+        }
+        case "CURRENCY": {
+            return `This country's currency symbol is ${country_info.currencies[0].symbol}`
+        }
+        case "BORDERS-3": {
+            const all_borders_codes = country_info.borders || [];
+            if (all_borders_codes.length === 0) {
+                return "This country doesn't border any other country.";
+            }
+
+            const all_borders_names = []
+            all_borders_codes.forEach((code) => {
+                all_borders_names.push(ISO3_COUNTRIES[code])
+            })
+
+            const selected_borders = [...all_borders_names]
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 3);
+
+            if (selected_borders.length >= 3) {
+                return `3 countries this country borders are: ${selected_borders[0]}, ${selected_borders[1]}, and ${selected_borders[2]}.`;
+            } else if (selected_borders.length === 2) {
+                return `This country borders ${selected_borders[0]} and ${selected_borders[1]}.`;
+            } else {
+                return `This country borders ${selected_borders[0]}.`;
+            }
+        }
+        case "COUNTRY-FIRST-LETTER": {
+            return `The first letter of this country is ${country_name[0]}`
+        }
+        case "LANGUAGES": {
+            const languages = [];
+            country_info.languages.forEach((langObj) => {
+                languages.push(langObj.name);
+            });
+
+            const formatter = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
+            const formatted = formatter.format(languages);
+
+            return `This country speaks ${formatted}.`
+        }
+        case "POPULATION": {
+            return `This country has a population of ${country_info.population}`
+        }
+        case "GOVERNMENT-TYPE": {
+            return `This country's government type is ${country_info.government_type}`
+        }
+        case "CAPITAL-FIRST-LETTER": {
+            const capitals = country_info.capitals
+            var capital = ""
+            capitals.forEach((cap) => {
+                if (cap.attributes.primary == true) {
+                    capital = cap.name
+                }
+            })
+
+            if (capital) {
+                return `The first letter of this country's primary capital is ${capital[0]}`
+            }
+            else {
+                return `This country does not have a primary capital.`
+            }
+        }
+        case "FLAG-DESC": {
+            // TODO: finish FLAG-DESC
+            return `FLAG DESC WIP`
+        }
+        case "CAPITAL": {
+            const capitals = country_info.capitals
+            var capital = ""
+            capitals.forEach((cap) => {
+                if (cap.attributes.primary == true) {
+                    capital = cap.name
+                }
+            })
+
+            if (capital) {
+                return `This country's primary capital is ${capital}`
+            }
+            else {
+                return `This country does not have a primary capital.`
+            }
+        }
+        case "ALL-BORDERS": {
+            const all_borders_codes = country_info.borders || [];
+            if (all_borders_codes.length === 0) {
+                return "This country doesn't border any other country.";
+            }
+
+            const all_borders_names = []
+            all_borders_codes.forEach((code) => {
+                all_borders_names.push(ISO3_COUNTRIES[code])
+            })
+
+            const formatter = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
+            const formatted = formatter.format(all_borders_names);
+            const label = all_borders_names.length === 1 ? "country" : "countries";
+
+            return `This country borders ${all_borders_names.length} ${label}: ${formatted}.`;
+        }
+        default: {
+            return `${HINT_TYPES} NOT IMPLEMENTED !!!!!!!!!!!!!!!!!!!!!!!!!`
+        }
+    }
+}
+
+function generate_hints(country_name) {
+    var generated = {}
+    Object.entries(HINT_TYPES).forEach((difficulty) => {
+        generated[difficulty[0]] = {}
+        difficulty[1].forEach((hint_type) => {
+            generated[difficulty[0]][hint_type] = get_hint_text(country_name, hint_type)
+        })
+    })
+
+    return generated;
+}
+
+console.log(generate_hints("Canada"))
+
+function add_hint(country_name, hint_number, hint_type) {
+    const hintDiv = document.getElementById(`hint-${hint_number}`)
+    const hintTag = document.getElementById(`hint-${hint_number}-tag`)
+    const hintContent = document.getElementById(`hint-${hint_number}-content`)
+
+    hintDiv.className = "hint" // No longer locked
+
+    if (hint_type) {
+        hintContent.textContent = get_hint_text(country_name, hint_type)
+        return;
+    }
+
+    const possible_hints = generate_hints(country_name)
+
+    if ([1, 2].includes(hint_number)) {
+        const selected_hints = Object.values(possible_hints["HARD"])
+        hintContent.textContent = selected_hints[Math.floor(Math.random() * selected_hints.length)];
+    }
+    if ([3, 4].includes(hint_number)) {
+        const selected_hints = Object.values(possible_hints["MEDIUM"])
+        hintContent.textContent = selected_hints[Math.floor(Math.random() * selected_hints.length)];
+    }
+    if ([5].includes(hint_number)) {
+        const selected_hints = Object.values(possible_hints["EASY"])
+        hintContent.textContent = selected_hints[Math.floor(Math.random() * selected_hints.length)];
+    }
+}
+
 // EVENT LISTENERS ##################################################################
 submitBtn.addEventListener("click", () => {
     add_guess(guessInput.value)
@@ -134,8 +338,7 @@ update_countries_datalist()
 set_correct_country()
 
 console.log(CORRECT_COUNTRY)
-
-console.log(JSON.parse(localStorage.getItem("countryData"))["Canada"])
+console.log(JSON.parse(localStorage.getItem("countryData"))[CORRECT_COUNTRY])
 
 
 
