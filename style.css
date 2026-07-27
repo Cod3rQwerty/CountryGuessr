@@ -150,6 +150,7 @@ nav {
     padding: 0.25rem 0.5rem;
     border-radius: 6px;
     letter-spacing: 0.05em;
+    white-space: nowrap
 }
 
 .hint-content {

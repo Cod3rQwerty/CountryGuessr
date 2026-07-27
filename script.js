@@ -338,6 +338,11 @@ update_countries_datalist()
 set_correct_country()
 
 console.log(CORRECT_COUNTRY)
+add_hint(CORRECT_COUNTRY, 1)
+add_hint(CORRECT_COUNTRY, 2)
+add_hint(CORRECT_COUNTRY, 3)
+add_hint(CORRECT_COUNTRY, 4)
+add_hint(CORRECT_COUNTRY, 5)
 console.log(JSON.parse(localStorage.getItem("countryData"))[CORRECT_COUNTRY])
 
 
