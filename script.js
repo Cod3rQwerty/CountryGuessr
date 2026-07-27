@@ -257,7 +257,7 @@ function get_hint_text(country_name, hint_type) {
 
             const all_borders_names = []
             all_borders_codes.forEach((code) => {
-                all_borders_names.push(ISO3_COUNTRIES[code])
+                if (ISO3_COUNTRIES[code]) { all_borders_names.push(ISO3_COUNTRIES[code]) } else { console.log(code) }
             })
 
             const formatter = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
