@@ -131,6 +131,26 @@ function add_guess(country_name) {
 
 }
 
+function getSanitizedDescription(countryName) {
+    const countryData = JSON.parse(localStorage.getItem("countryData"))[countryName];
+    if (!countryData) return null;
+
+    // Combine all names into a single array cuz description name format is inconsistently weird
+    const names = [
+        ...(countryData.names.alternates || []),
+        countryData.names.official,
+        countryData.names.common,
+    ].filter(Boolean);
+
+    let description = countryData.flag.description;
+
+    for (const name of names) {
+        description = description.replaceAll(name, "this country");
+    }
+
+    return description;
+}
+
 function get_hint_text(country_name, hint_type) {
     const country_info = JSON.parse(localStorage.getItem("countryData"))[country_name]
 
@@ -232,8 +252,7 @@ function get_hint_text(country_name, hint_type) {
             }
         }
         case "FLAG-DESC": {
-            // TODO: finish FLAG-DESC
-            return `FLAG DESC WIP`
+            return getSanitizedDescription(country_name)
         }
         case "CAPITAL": {
             const capitals = country_info.capitals
@@ -269,7 +288,7 @@ function get_hint_text(country_name, hint_type) {
             return `This country borders ${all_borders_names.length} ${label}: ${formatted}.`;
         }
         default: {
-            return `${HINT_TYPES} NOT IMPLEMENTED !!!!!!!!!!!!!!!!!!!!!!!!!`
+            return `${hint_type} NOT IMPLEMENTED !!!!!!!!!!!!!!!!!!!!!!!!!`
         }
     }
 }
@@ -285,8 +304,6 @@ function generate_hints(country_name) {
 
     return generated;
 }
-
-console.log(generate_hints("Canada"))
 
 function add_hint(country_name, hint_number, hint_type) {
     const hintDiv = document.getElementById(`hint-${hint_number}`)
