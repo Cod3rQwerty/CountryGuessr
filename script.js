@@ -127,6 +127,8 @@ function add_guess(country_name) {
     ATTEMPTS += 1
     attemptsText.textContent = ATTEMPTS
 
+    add_hint(CORRECT_COUNTRY, ATTEMPTS)
+
 }
 
 function get_hint_text(country_name, hint_type) {
@@ -325,8 +327,6 @@ guessInput.addEventListener("keyup", (event) => {
     if (event.key == "Enter") {
         add_guess(guessInput.value)
         guessInput.value = ""
-        ATTEMPTS += 1
-        attemptsText.value = ATTEMPTS
     }
 
 })
@@ -338,11 +338,6 @@ update_countries_datalist()
 set_correct_country()
 
 console.log(CORRECT_COUNTRY)
-add_hint(CORRECT_COUNTRY, 1)
-add_hint(CORRECT_COUNTRY, 2)
-add_hint(CORRECT_COUNTRY, 3)
-add_hint(CORRECT_COUNTRY, 4)
-add_hint(CORRECT_COUNTRY, 5)
 console.log(JSON.parse(localStorage.getItem("countryData"))[CORRECT_COUNTRY])
 
 
