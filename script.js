@@ -342,9 +342,9 @@ function add_hint(country_name, hint_number, hint_type) {
         USED_HINTS.push(selected_hint_type)
     }
     if ([5].includes(hint_number)) {
-        const selected_hints = Object.values(possible_hints["MEDIUM"])
+        const selected_hints = Object.values(possible_hints["EASY"])
         const selected_idx = Math.floor(Math.random() * selected_hints.length)
-        const selected_hint_type = Object.keys(possible_hints["MEDIUM"])[selected_idx]
+        const selected_hint_type = Object.keys(possible_hints["EASY"])[selected_idx]
         hintContent.textContent = selected_hints[selected_idx];
 
         USED_HINTS.push(selected_hint_type)
