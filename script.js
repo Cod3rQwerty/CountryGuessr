@@ -316,7 +316,12 @@ function add_hint(country_name, hint_number, hint_type) {
     const hintTag = document.getElementById(`hint-${hint_number}-tag`)
     const hintContent = document.getElementById(`hint-${hint_number}-content`)
 
-    hintDiv.className = "hint" // No longer locked
+    try {
+        hintDiv.className = "hint" // No longer locked
+    }
+    catch { TypeError } {
+        // When on last attempt, no hint #6 so need to catch that error.
+    }
 
     if (hint_type) {
         hintContent.textContent = get_hint_text(country_name, hint_type)
