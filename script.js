@@ -2,7 +2,7 @@
 var ATTEMPTS = 0
 var CORRECT_COUNTRY = ""
 const HINT_TYPES = {
-    "HARD": ["DRIVING-SIDE",
+    "HARD": ["DRIVING-SIDE",         // HARD hints give away the least info
         "LANDLOCKED",
         "CONTINENT",
         "AREA",
@@ -15,11 +15,12 @@ const HINT_TYPES = {
         "POPULATION",
         "GOVERNMENT-TYPE",
         "CAPITAL-FIRST-LETTER"],
-    "EASY": [
+    "EASY": [                        // EASY hints give away the most info
         "FLAG-DESC",
         "CAPITAL",
         "ALL-BORDERS"]
 }
+let USED_HINTS = []
 
 // DOM ELEMENTS #####################################################################
 const guessInput = document.getElementById("country-input")
@@ -298,7 +299,12 @@ function generate_hints(country_name) {
     Object.entries(HINT_TYPES).forEach((difficulty) => {
         generated[difficulty[0]] = {}
         difficulty[1].forEach((hint_type) => {
-            generated[difficulty[0]][hint_type] = get_hint_text(country_name, hint_type)
+            if (!USED_HINTS.includes(hint_type)) {
+                generated[difficulty[0]][hint_type] = get_hint_text(country_name, hint_type)
+            }
+            else {
+                // Hint already used so dont add it to possible hints
+            }
         })
     })
 
@@ -321,15 +327,27 @@ function add_hint(country_name, hint_number, hint_type) {
 
     if ([1, 2].includes(hint_number)) {
         const selected_hints = Object.values(possible_hints["HARD"])
-        hintContent.textContent = selected_hints[Math.floor(Math.random() * selected_hints.length)];
+        const selected_idx = Math.floor(Math.random() * selected_hints.length)
+        const selected_hint_type = Object.keys(possible_hints["HARD"])[selected_idx]
+        hintContent.textContent = selected_hints[selected_idx];
+
+        USED_HINTS.push(selected_hint_type)
     }
     if ([3, 4].includes(hint_number)) {
         const selected_hints = Object.values(possible_hints["MEDIUM"])
-        hintContent.textContent = selected_hints[Math.floor(Math.random() * selected_hints.length)];
+        const selected_idx = Math.floor(Math.random() * selected_hints.length)
+        const selected_hint_type = Object.keys(possible_hints["MEDIUM"])[selected_idx]
+        hintContent.textContent = selected_hints[selected_idx];
+
+        USED_HINTS.push(selected_hint_type)
     }
     if ([5].includes(hint_number)) {
-        const selected_hints = Object.values(possible_hints["EASY"])
-        hintContent.textContent = selected_hints[Math.floor(Math.random() * selected_hints.length)];
+        const selected_hints = Object.values(possible_hints["MEDIUM"])
+        const selected_idx = Math.floor(Math.random() * selected_hints.length)
+        const selected_hint_type = Object.keys(possible_hints["MEDIUM"])[selected_idx]
+        hintContent.textContent = selected_hints[selected_idx];
+
+        USED_HINTS.push(selected_hint_type)
     }
 }
 
