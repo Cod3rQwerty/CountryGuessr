@@ -1,3 +1,5 @@
+// This file exists for the sole purpose of storing this.
+// Pls dont change
 const ISO3_COUNTRIES = {
     "AFG": "Afghanistan",
     "ALB": "Albania",
