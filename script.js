@@ -110,6 +110,10 @@ function add_guess(country_name) {
         return;
     }
 
+    if (country_name === CORRECT_COUNTRY) {
+        handleCorrectAnswer();
+    }
+
     const placeholder = document.getElementById("guess-placeholder-container")
     if (placeholder != null) {
         placeholder.remove();
@@ -130,6 +134,11 @@ function add_guess(country_name) {
 
     add_hint(CORRECT_COUNTRY, ATTEMPTS)
 
+}
+function handleCorrectAnswer() {
+    const alertText = document.getElementById("alert")
+    alertText.textContent = "You got the correct country!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+    // TODO: Implement correct answer logic
 }
 
 function getSanitizedDescription(countryName) {
