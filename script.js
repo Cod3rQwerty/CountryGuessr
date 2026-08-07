@@ -381,13 +381,17 @@ guessInput.addEventListener("keyup", (event) => {
 })
 
 // MAIN #############################################################################
+async function init() {
+    await save_countries_to_local()
+    update_countries_datalist()
+    set_correct_country()
 
-save_countries_to_local()
-update_countries_datalist()
-set_correct_country()
+    console.log(CORRECT_COUNTRY)
+    console.log(JSON.parse(localStorage.getItem("countryData"))[CORRECT_COUNTRY])
+}
 
-console.log(CORRECT_COUNTRY)
-console.log(JSON.parse(localStorage.getItem("countryData"))[CORRECT_COUNTRY])
+init()
+
 
 
 
