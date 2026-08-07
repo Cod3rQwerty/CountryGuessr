@@ -4,7 +4,6 @@ import os
 from dotenv import load_dotenv
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 
 load_dotenv()
 
@@ -46,7 +45,6 @@ def get_all_countries():
     return countries
 
 app.include_router(router)
-app.mount("/", StaticFiles(directory="../frontend", html=True), name="frontend")
 
 if __name__ == '__main__':
     data = get_all_countries()
