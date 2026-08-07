@@ -83,6 +83,19 @@
         </div>
     </div>
 
+    <button command="show-modal" commandfor="winModal">Open dialog</button>
+
+    <dialog class="win-dialog" id="winModal">
+        <div class="win-dialog-contents">
+            <h2 class="win-text">You Win!</h2>
+            <p class="win-country-text">The country was
+                <span class="country-accent-text" id="winCountryName">Canada!</span>
+            </p>
+            <img class="win-country-img" id="winCountryImg" src="https://flags.restcountries.com/v5/w640/ca.png">
+            <button class="play-again-btn" id="playAgainBtn">Play Again</button>
+        </div>
+    </dialog>
+
 </body>
 
 <datalist id="countries"></datalist>

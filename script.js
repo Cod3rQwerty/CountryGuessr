@@ -22,11 +22,6 @@ const HINT_TYPES = {
 }
 let USED_HINTS = []
 
-// DOM ELEMENTS #####################################################################
-const guessInput = document.getElementById("country-input")
-const submitBtn = document.getElementById("submit-btn")
-const attemptsText = document.getElementById("current-attempts")
-
 // FUNCTIONS ########################################################################
 async function get_all_countries() {
     var offset = 0;
@@ -135,10 +130,18 @@ function add_guess(country_name) {
     add_hint(CORRECT_COUNTRY, ATTEMPTS)
 
 }
+
 function handleCorrectAnswer() {
-    const alertText = document.getElementById("alert")
-    alertText.textContent = "You got the correct country!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-    // TODO: Implement correct answer logic
+    const winDialog = document.getElementById("winModal")
+    const countryNameElement = document.getElementById("winCountryName")
+    const countryFlagElement = document.getElementById("winCountryImg")
+
+    const countryFlag = JSON.parse(localStorage.getItem("countryData"))[CORRECT_COUNTRY].flag.url_png
+
+    countryNameElement.textContent = CORRECT_COUNTRY
+    countryFlagElement.src = countryFlag
+
+    winDialog.showModal()
 }
 
 function getSanitizedDescription(countryName) {
@@ -364,6 +367,11 @@ function add_hint(country_name, hint_number, hint_type) {
         USED_HINTS.push(selected_hint_type)
     }
 }
+// DOM ELEMENTS #####################################################################
+const guessInput = document.getElementById("country-input")
+const submitBtn = document.getElementById("submit-btn")
+const attemptsText = document.getElementById("current-attempts")
+const restartBtn = document.getElementById("playAgainBtn")
 
 // EVENT LISTENERS ##################################################################
 submitBtn.addEventListener("click", () => {
@@ -378,6 +386,10 @@ guessInput.addEventListener("keyup", (event) => {
         guessInput.value = ""
     }
 
+})
+
+restartBtn.addEventListener("click", () => {
+    document.location.reload()
 })
 
 // MAIN #############################################################################
