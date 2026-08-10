@@ -106,8 +106,17 @@ function add_guess(country_name) {
         return;
     }
 
+    ATTEMPTS += 1
+    attemptsText.textContent = ATTEMPTS
+
     if (country_name === CORRECT_COUNTRY) {
         handleWin();
+        return;
+    }
+
+    if (ATTEMPTS === MAX_ATTEMPTS) {
+        handleLose();
+        return;
     }
 
     const placeholder = document.getElementById("guess-placeholder-container")
@@ -124,14 +133,6 @@ function add_guess(country_name) {
     </div>
   `;
     guessesStack.insertAdjacentHTML('beforeend', guessHTML);
-
-    ATTEMPTS += 1
-
-    if (ATTEMPTS === MAX_ATTEMPTS) {
-        handleLose();
-    }
-
-    attemptsText.textContent = ATTEMPTS
 
     add_hint(CORRECT_COUNTRY, ATTEMPTS)
 
