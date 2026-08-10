@@ -83,14 +83,25 @@
         </div>
     </div>
 
-    <dialog class="win-dialog" id="winModal">
-        <div class="win-dialog-contents">
-            <h2 class="win-text">You Win!</h2>
-            <p class="win-country-text">The country was
+    <dialog class="result-dialog" id="winModal">
+        <div class="result-dialog-contents">
+            <h2 class="result-text">You Win!</h2>
+            <p class="result-country-text">The country was
                 <span class="country-accent-text" id="winCountryName">Canada!</span>
             </p>
-            <img class="win-country-img" id="winCountryImg" src="https://flags.restcountries.com/v5/w640/ca.png">
-            <button class="play-again-btn" id="playAgainBtn">Play Again</button>
+            <img class="country-img" id="winCountryImg" src="https://flags.restcountries.com/v5/w640/ca.png">
+            <button class="play-again-btn" id="winPlayAgainBtn">Play Again</button>
+        </div>
+    </dialog>
+
+    <dialog class="result-dialog" id="loseModal">
+        <div class="result-dialog-contents">
+            <h2 class="result-text-lose">You ran out of attempts...</h2>
+            <p class="result-country-text">The country was
+                <span class="country-accent-text" id="loseCountryName">Canada!</span>
+            </p>
+            <img class="country-img" id="loseCountryImg" src="https://flags.restcountries.com/v5/w640/ca.png">
+            <button class="play-again-btn" id="losePlayAgainBtn">Play Again</button>
         </div>
     </dialog>
 

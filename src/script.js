@@ -1,5 +1,6 @@
 // GLOBALS ##########################################################################
 var ATTEMPTS = 0
+let MAX_ATTEMPTS = 6
 var CORRECT_COUNTRY = ""
 const HINT_TYPES = {
     "HARD": ["DRIVING-SIDE",         // HARD hints give away the least info
@@ -106,7 +107,7 @@ function add_guess(country_name) {
     }
 
     if (country_name === CORRECT_COUNTRY) {
-        handleCorrectAnswer();
+        handleWin();
     }
 
     const placeholder = document.getElementById("guess-placeholder-container")
@@ -125,13 +126,18 @@ function add_guess(country_name) {
     guessesStack.insertAdjacentHTML('beforeend', guessHTML);
 
     ATTEMPTS += 1
+
+    if (ATTEMPTS === MAX_ATTEMPTS) {
+        handleLose();
+    }
+
     attemptsText.textContent = ATTEMPTS
 
     add_hint(CORRECT_COUNTRY, ATTEMPTS)
 
 }
 
-function handleCorrectAnswer() {
+function handleWin() {
     const winDialog = document.getElementById("winModal")
     const countryNameElement = document.getElementById("winCountryName")
     const countryFlagElement = document.getElementById("winCountryImg")
@@ -142,6 +148,19 @@ function handleCorrectAnswer() {
     countryFlagElement.src = countryFlag
 
     winDialog.showModal()
+}
+
+function handleLose() {
+    const loseDialog = document.getElementById("loseModal")
+    const countryNameElement = document.getElementById("loseCountryName")
+    const countryFlagElement = document.getElementById("loseCountryImg")
+
+    const countryFlag = JSON.parse(localStorage.getItem("countryData"))[CORRECT_COUNTRY].flag.url_png
+
+    countryNameElement.textContent = CORRECT_COUNTRY
+    countryFlagElement.src = countryFlag
+
+    loseDialog.showModal()
 }
 
 function getSanitizedDescription(countryName) {
@@ -371,7 +390,8 @@ function add_hint(country_name, hint_number, hint_type) {
 const guessInput = document.getElementById("country-input")
 const submitBtn = document.getElementById("submit-btn")
 const attemptsText = document.getElementById("current-attempts")
-const restartBtn = document.getElementById("playAgainBtn")
+const restartBtnWin = document.getElementById("winPlayAgainBtn")
+const restartBtnLose = document.getElementById("losePlayAgainBtn")
 
 // EVENT LISTENERS ##################################################################
 submitBtn.addEventListener("click", () => {
@@ -388,7 +408,11 @@ guessInput.addEventListener("keyup", (event) => {
 
 })
 
-restartBtn.addEventListener("click", () => {
+restartBtnWin.addEventListener("click", () => {
+    document.location.reload()
+})
+
+restartBtnLose.addEventListener("click", () => {
     document.location.reload()
 })
 

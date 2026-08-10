@@ -221,7 +221,7 @@ nav {
     justify-content: center;
 }
 
-.win-dialog {
+.result-dialog {
     border: 1px solid #334155;
     border-radius: 20px;
     background-color: #1e293b;
@@ -233,16 +233,16 @@ nav {
     outline: none;
 }
 
-.win-dialog[open] {
+.result-dialog[open] {
     animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.win-dialog::backdrop {
+.result-dialog::backdrop {
     background-color: rgba(15, 23, 42, 0.5);
     backdrop-filter: blur(8px);
 }
 
-.win-dialog-contents {
+.result-dialog-contents {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -250,7 +250,7 @@ nav {
     gap: 1.25rem;
 }
 
-.win-text {
+.result-text {
     font-size: 2.25rem;
     font-weight: 800;
     margin: 0;
@@ -258,13 +258,21 @@ nav {
     letter-spacing: -0.025em;
 }
 
-.win-country-text {
+.result-text-lose {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0;
+    color: #f8fafc;
+    letter-spacing: -0.025em;
+}
+
+.result-country-text {
     font-size: 1.1rem;
     color: #94a3b8;
     margin: 0;
 }
 
-.win-country-img {
+.country-img {
     width: 50%;
     height: auto;
     border-radius: 10px;
