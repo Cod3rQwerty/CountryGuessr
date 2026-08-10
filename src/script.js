@@ -393,6 +393,8 @@ const attemptsText = document.getElementById("current-attempts")
 const restartBtnWin = document.getElementById("winPlayAgainBtn")
 const restartBtnLose = document.getElementById("losePlayAgainBtn")
 
+const maxAttemptsText = document.getElementById("maxAttempts")
+
 // EVENT LISTENERS ##################################################################
 submitBtn.addEventListener("click", () => {
     add_guess(guessInput.value)
@@ -421,6 +423,8 @@ async function init() {
     await save_countries_to_local()
     update_countries_datalist()
     set_correct_country()
+
+    maxAttemptsText.textContent = MAX_ATTEMPTS
 
     console.log(CORRECT_COUNTRY)
     console.log(JSON.parse(localStorage.getItem("countryData"))[CORRECT_COUNTRY])
