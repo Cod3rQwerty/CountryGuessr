@@ -321,6 +321,7 @@ function get_hint_text(country_name, hint_type) {
         }
         default: {
             return `${hint_type} NOT IMPLEMENTED !!!!!!!!!!!!!!!!!!!!!!!!!`
+            throw Error(`${hint_type} NOT IMPLEMENTED !!!!!!!!!!!!!!!!!!!!!!!!!`)
         }
     }
 }
