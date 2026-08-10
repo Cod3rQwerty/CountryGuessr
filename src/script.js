@@ -242,9 +242,9 @@ function get_hint_text(country_name, hint_type) {
             if (selected_borders.length >= 3) {
                 return `3 countries this country borders are: ${selected_borders[0]}, ${selected_borders[1]}, and ${selected_borders[2]}.`;
             } else if (selected_borders.length === 2) {
-                return `This country borders ${selected_borders[0]} and ${selected_borders[1]}.`;
+                return `This country borders only ${selected_borders[0]} and ${selected_borders[1]}.`;
             } else {
-                return `This country borders ${selected_borders[0]}.`;
+                return `This country borders only ${selected_borders[0]}.`;
             }
         }
         case "COUNTRY-FIRST-LETTER": {
@@ -316,6 +316,10 @@ function get_hint_text(country_name, hint_type) {
             const formatter = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
             const formatted = formatter.format(all_borders_names);
             const label = all_borders_names.length === 1 ? "country" : "countries";
+
+            if (all_borders_names.length >= 3) {
+                return get_hint_text(country_name, HINT_TYPES.EASY[Math.floor(Math.random() * HINT_TYPES.EASY.length)])
+            }
 
             return `This country borders ${all_borders_names.length} ${label}: ${formatted}.`;
         }
@@ -432,7 +436,3 @@ async function init() {
 }
 
 init()
-
-
-
-
