@@ -1,7 +1,7 @@
 // GLOBALS ##########################################################################
-var ATTEMPTS = 0
+let ATTEMPTS = 0
 let MAX_ATTEMPTS = 6
-var CORRECT_COUNTRY = ""
+let CORRECT_COUNTRY = ""
 const HINT_TYPES = {
     "HARD": ["DRIVING-SIDE",         // HARD hints give away the least info
         "LANDLOCKED",
@@ -25,8 +25,8 @@ let USED_HINTS = []
 
 // FUNCTIONS ########################################################################
 async function get_all_countries() {
-    var offset = 0;
-    var countries = [];
+    let offset = 0;
+    let countries = [];
 
     while (true) {
         const response = await fetch(
@@ -270,7 +270,7 @@ function get_hint_text(country_name, hint_type) {
         }
         case "CAPITAL-FIRST-LETTER": {
             const capitals = country_info.capitals
-            var capital = ""
+            let capital = ""
             capitals.forEach((cap) => {
                 if (cap.attributes.primary == true) {
                     capital = cap.name
@@ -289,7 +289,7 @@ function get_hint_text(country_name, hint_type) {
         }
         case "CAPITAL": {
             const capitals = country_info.capitals
-            var capital = ""
+            let capital = ""
             capitals.forEach((cap) => {
                 if (cap.attributes.primary == true) {
                     capital = cap.name
@@ -332,7 +332,7 @@ function get_hint_text(country_name, hint_type) {
 }
 
 function generate_hints(country_name) {
-    var generated = {}
+    let generated = {}
     Object.entries(HINT_TYPES).forEach((difficulty) => {
         generated[difficulty[0]] = {}
         difficulty[1].forEach((hint_type) => {
