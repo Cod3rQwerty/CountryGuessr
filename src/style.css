@@ -1,3 +1,21 @@
+/* --------------- HIDE SCROLLBAR ------------------ */
+
+html {
+    overflow-y: scroll;
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
+}
+
+html::-webkit-scrollbar {
+    /* WebKit */
+    width: 0;
+    height: 0;
+}
+
+/* -------------------------------------------------- */
+
 body {
     background-color: #0f172a;
     color: #f8fafc;
