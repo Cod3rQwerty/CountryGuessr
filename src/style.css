@@ -70,13 +70,20 @@ nav {
     box-sizing: border-box;
 }
 
+/* 1 Column in Mobile */
 .game-container {
     display: grid;
-    grid-template-columns: 2fr 2fr;
-
+    grid-template-columns: 1fr;
     width: 100%;
     max-width: 1200px;
     gap: 1.5rem;
+}
+
+/* 2 Columns on Desktop */
+@media (min-width: 768px) {
+    .game-container {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 /* Attempts Tracker */
