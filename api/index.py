@@ -2,7 +2,7 @@ import os
 import httpx
 import dotenv
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
 from slowapi import Limiter, _rate_limit_exceeded_handler
@@ -31,7 +31,7 @@ dotenv.load_dotenv()
 
 @app.get("/api/get_countries")
 @limiter.limit("5/minute")
-async def get_countries():
+async def get_countries(request: Request):
     api_key = os.getenv("REST_COUNTRIES_API_KEY")
     offset = 0
     countries = []
